@@ -4,9 +4,22 @@
   padding: 2rem;
 }
 
+input {
+  border-radius: 8px;
+  height: 30px;
+}
+
 .toaster {
   position: absolute;
   bottom: 10px;
+}
+
+.toast {
+  background-color: lightseagreen;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 5px;
+  width: 500px;
 }
 
 .logo {

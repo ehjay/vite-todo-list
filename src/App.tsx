@@ -102,7 +102,7 @@ function App() {
   }
 
   const renderToast = (toast: Toast) => {
-    return (<div key={toast.id}>{toast.message}</div>)
+    return (<div key={toast.id} className='toast'>{toast.message}</div>)
   }
 
   const renderToaster = () => {
@@ -117,7 +117,7 @@ function App() {
     <>
       <form onSubmit={handleSubmit}>
         <label>New item: </label>
-        <input name="description" value={newDesc} onChange={e => setNewDesc(e.target.value)} />
+        <input name="description" placeholder='Enter a new item' value={newDesc} onChange={e => setNewDesc(e.target.value)} />
         <button type="submit">Add</button>
       </form>
 
