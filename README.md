@@ -20,7 +20,7 @@ Install dependencies, build, and serve the page:
 ```
 pnpm i
 pnpm build
-pnpm preview
+pnpm dev
 ```
 
 Open in browser:
