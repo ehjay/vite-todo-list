@@ -15,6 +15,11 @@ type Item = {
   status: Status
 }
 
+type Toast = {
+  id: string
+  message: string
+}
+
 const getRandomId = () => {
   let randomChars = [],
   count = 0;
@@ -37,6 +42,7 @@ const defaultItems: Item[] = [
 function App() {
   const [items, setItems] = useState<Item[]>(defaultItems);
   const [newDesc, setNewDesc] = useState<string>("");
+  const [toasts, setToasts] = useState<Toast[]>([]);
 
   const renderItem = (item: Item) => {
     return (<p key={item.id}>{statusMessages[item.status]}: {item.description}</p>);
@@ -50,6 +56,28 @@ function App() {
     return items.map(renderItem);
   }
 
+  const removeToast = (id: string) => {
+    setToasts(
+      toasts.filter(toast => toast.id !== id)
+    )
+  }
+
+  const createToast = (message: string) => {
+    const newToast = {
+      id: getRandomId(),
+      message
+    }
+
+    setToasts([
+      ...toasts,
+      newToast
+    ])
+
+    setTimeout(() => {
+      removeToast(newToast.id)
+    }, 5000);
+  }
+
   const handleSubmit = (e: SyntheticEvent) => {
     // prevent page reload
     e.preventDefault();
@@ -58,12 +86,31 @@ function App() {
       description: { value: string}
     }
 
+    const description = form.description.value;
+
     setItems([
-      { id: getRandomId(), description: form.description.value , status: Status.TODO },
+      { id: getRandomId(), description , status: Status.TODO },
       ...items
     ])
 
     setNewDesc("")
+
+    let shortDescription = description.length > 10 ?
+       description.slice(0, 10) + "..." : description
+
+    createToast(`Todo created to "${shortDescription}"`);
+  }
+
+  const renderToast = (toast: Toast) => {
+    return (<div key={toast.id}>{toast.message}</div>)
+  }
+
+  const renderToaster = () => {
+    if (toasts.length === 0) {
+      return null;
+    }
+
+    return toasts.map(renderToast)
   }
 
   return (
@@ -76,6 +123,10 @@ function App() {
 
       <div>
         {renderList()}
+      </div>
+
+      <div className="toaster">
+        {renderToaster()}
       </div>
     </>
   )
