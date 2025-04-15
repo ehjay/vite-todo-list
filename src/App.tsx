@@ -3,11 +3,7 @@ import './App.css'
 
 enum Status { TODO, IN_PROGRESS, DONE }
 
-const statusMessages = {
-  [Status.TODO]: "Todo",
-  [Status.IN_PROGRESS]: "In progress",
-  [Status.DONE]: "Done"
-}
+
 
 type Item = {
   id: string
@@ -44,8 +40,28 @@ function App() {
   const [newDesc, setNewDesc] = useState<string>("");
   const [toasts, setToasts] = useState<Toast[]>([]);
 
+  const renderBadge = (status: Status) => {
+    const statusMessages = {
+      [Status.TODO]: "Todo",
+      [Status.IN_PROGRESS]: "In progress",
+      [Status.DONE]: "Done"
+    }
+
+    const badgeClasses = {
+      [Status.TODO]: "todoBadge",
+      [Status.IN_PROGRESS]: "inProgressBadge",
+      [Status.DONE]: "doneBadge"
+    }
+
+    const message = statusMessages[status];
+    const badgeClass = badgeClasses[status];
+
+    return (<div className={badgeClass}>{message}</div>)
+
+  }
+
   const renderItem = (item: Item) => {
-    return (<p key={item.id}>{statusMessages[item.status]}: {item.description}</p>);
+    return (<p key={item.id}>{renderBadge(item.status)} {item.description}</p>);
   }
 
   const renderList = () => {
@@ -116,7 +132,6 @@ function App() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>New item: </label>
         <input name="description" placeholder='Enter a new item' value={newDesc} onChange={e => setNewDesc(e.target.value)} />
         <button type="submit">Add</button>
       </form>

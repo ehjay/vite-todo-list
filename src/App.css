@@ -22,6 +22,30 @@ input {
   width: 500px;
 }
 
+.todoBadge {
+  background-color: lightseagreen;
+  border-radius: 8px;
+  float: left;
+  padding: 5px;
+  color: black;
+}
+
+.inProgressBadge {
+  background-color: lightyellow;
+  border-radius: 8px;
+  color: black;
+  float: left;
+  padding: 5px;
+}
+
+.doneBadge {
+  background-color: lightblue;
+  border-radius: 8px;
+  color: black;
+  float: left;
+  padding: 5px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
